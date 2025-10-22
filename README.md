@@ -3,37 +3,44 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Floating Logic Gates (Overlay)</title>
+<title>Straight Falling Logic Gates</title>
 <style>
-  html,body{height:100%;margin:0;padding:0;background:transparent;overflow:hidden}
+  html,body{
+    height:100%;
+    margin:0;
+    background:transparent;
+    overflow:hidden;
+  }
+
   #float-root{
     position:fixed;
-    top:0;
-    left:0;
+    inset:0;
     width:100%;
     height:100%;
     pointer-events:none;
     z-index:0;
     overflow:hidden;
   }
-  .gate {
+
+  .gate{
     position:absolute;
-    top:-80px; 
-    will-change: transform, opacity;
+    top:-80px;
+    will-change:transform,opacity;
     opacity:0.95;
     transform-origin:center;
-    display:block;
   }
+
   .gate img{
     display:block;
     width:44px;
     height:auto;
-    filter: drop-shadow(0 0 10px rgba(125,211,252,0.45));
+    filter:drop-shadow(0 0 10px rgba(180,220,255,0.5));
   }
+
   @keyframes fall {
     0%   { transform: translateY(0) rotate(0deg) scale(1); opacity:1; }
-    80%  { opacity:0.9; }
-    100% { transform: translateY(120vh) rotate(540deg) scale(1.05); opacity:0.08; }
+    90%  { opacity:0.9; }
+    100% { transform: translateY(120vh) rotate(720deg) scale(1); opacity:0.05; }
   }
 </style>
 </head>
@@ -41,68 +48,55 @@
   <div id="float-root" aria-hidden="true"></div>
 
 <script>
-
-
 (function(){
   const ROOT = document.getElementById('float-root');
   const ICONS = [
-    "https://i.postimg.cc/QM7HzShk/logic-gate-and-svgrepo-com.png",
-    "https://i.postimg.cc/DzG8N5nL/logic-gate-not-svgrepo-com.png",
-    "https://i.postimg.cc/7LzfRXw1/logic-gate-or-svgrepo-com.png"
+    "https://upload.wikimedia.org/wikipedia/commons/5/5b/AND_ANSI_Labelled.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/3/3c/OR_ANSI_Labelled.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/2/2a/NOT_ANSI_Labelled.svg"
   ];
 
-
-  const SPAWN_INTERVAL_MS = 700;   
-  const MAX_ON_SCREEN = 18;   
-  const MIN_DURATION = 8500;    
-  const MAX_DURATION = 18000; 
-  const MIN_SCALE = 0.75;
+  const MAX_ON_SCREEN = 18;
+  const SPAWN_INTERVAL_MS = 800;
+  const MIN_DURATION = 9000;
+  const MAX_DURATION = 17000;
+  const MIN_SCALE = 0.8;
   const MAX_SCALE = 1.3;
-
   let active = 0;
 
-  function rand(min, max){ return Math.random() * (max - min) + min; }
-  function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+  function rand(min,max){return Math.random()*(max-min)+min;}
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
 
   function spawnGate(){
-    if (active >= MAX_ON_SCREEN) return;
-    const imgUrl = pick(ICONS);
-    const el = document.createElement('div');
-    el.className = 'gate';
-    const leftPct = rand(-8, 102);
-    el.style.left = leftPct + '%';
-
-    const scale = rand(MIN_SCALE, MAX_SCALE);
-    el.style.transform = `translateY(0) rotate(${rand(0,360)}deg) scale(${scale})`;
-
-    const duration = Math.round(rand(MIN_DURATION, MAX_DURATION));
-    el.style.animation = `fall ${duration}ms linear forwards`;
-
-    el.style.rotate = `${rand(-45,45)}deg`;
+    if(active >= MAX_ON_SCREEN) return;
+    const gate = document.createElement('div');
+    gate.className = 'gate';
 
     const img = document.createElement('img');
-    img.src = imgUrl;
+    img.src = pick(ICONS);
     img.alt = '';
-    el.appendChild(img);
-    ROOT.appendChild(el);
+    gate.appendChild(img);
+
+    const left = rand(-5, 95);
+    gate.style.left = left + '%';
+    const scale = rand(MIN_SCALE, MAX_SCALE);
+    const duration = rand(MIN_DURATION, MAX_DURATION);
+    gate.style.transform = `translateY(0) rotate(${rand(0,360)}deg) scale(${scale})`;
+    gate.style.animation = `fall ${duration}ms linear forwards`;
+
+    ROOT.appendChild(gate);
     active++;
 
-    setTimeout(() => {
-      if (el && el.parentNode) el.parentNode.removeChild(el);
-      active = Math.max(0, active - 1);
-    }, duration + 200); 
+    setTimeout(()=>{
+      gate.remove();
+      active = Math.max(0, active-1);
+    }, duration + 200);
   }
 
-  for (let i=0;i<6;i++){
-    setTimeout(spawnGate, i * 200);
-  }
-
-  const intervalId = setInterval(spawnGate, SPAWN_INTERVAL_MS);
-
-  window.__floatingGates = {
-    stop: () => clearInterval(intervalId),
-    spawnOnce: spawnGate
-  };
+  // Initial burst
+  for(let i=0;i<6;i++) setTimeout(spawnGate, i*250);
+  // Repeat
+  setInterval(spawnGate, SPAWN_INTERVAL_MS);
 })();
 </script>
 </body>
