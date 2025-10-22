@@ -42,9 +42,9 @@
 <body>
 <script>
   const svgs = [
-    'https://raw.githubusercontent.com/yourusername/yourrepo/main/assets/logic-gate-and.svg',
-    'https://raw.githubusercontent.com/yourusername/yourrepo/main/assets/logic-gate-or.svg',
-    'https://raw.githubusercontent.com/cheeeseeeeey-cmd/Genius-hour/main/assets/logic-gate-not.svg'
+    'https://github.com/cheeeseeeeey-cmd/Genius-hour/tree/main/assets/logic-gate-and-svgrepo-com.svg',
+    'https://github.com/cheeeseeeeey-cmd/Genius-hour/tree/main/assets/logic-gate-or-svgrepo-com.svg',
+    'https://github.com/cheeeseeeeey-cmd/Genius-hour/tree/main/assets/logic-gate-not-svgrepo-com.svg'
   ];
 
   function createGate() {
