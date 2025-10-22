@@ -51,10 +51,17 @@
 (function(){
   const ROOT = document.getElementById('float-root');
   const ICONS = [
-    "https://upload.wikimedia.org/wikipedia/commons/5/5b/AND_ANSI_Labelled.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/3/3c/OR_ANSI_Labelled.svg",
-    "https://upload.wikimedia.org/wikipedia/commons/2/2a/NOT_ANSI_Labelled.svg"
-  ];
+  `<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#00ffea" d="M105 105v302h151c148 0 148-302 0-302H105z"/>
+  </svg>`,
+  `<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#00ffea" d="M116.6 407c40-45.9 60.4-98.4 60.4-151H192c34.1 0 81.9 34 119.3 71.4z"/>
+  </svg>`,
+  `<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#00ffea" d="M105,111.3V400.7L365.5,256Z"/>
+  </svg>`
+];
+
 
   const MAX_ON_SCREEN = 18;
   const SPAWN_INTERVAL_MS = 800;
