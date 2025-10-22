@@ -44,7 +44,7 @@
   const svgs = [
     'https://raw.githubusercontent.com/yourusername/yourrepo/main/assets/logic-gate-and.svg',
     'https://raw.githubusercontent.com/yourusername/yourrepo/main/assets/logic-gate-or.svg',
-    'https://raw.githubusercontent.com/yourusername/yourrepo/main/assets/logic-gate-not.svg'
+    'https://raw.githubusercontent.com/cheeeseeeeey-cmd/Genius-hour/main/assets/logic-gate-not.svg'
   ];
 
   function createGate() {
